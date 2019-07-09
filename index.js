@@ -42,10 +42,10 @@ const Interp = F => {
   // :: f (FreerT f m a) -> FreerT f m a
   const wrap = fr => cb => cb(Bind(fr)(ft => ft(cb)));
 
-  // :: Functor f -> f a -> FreerT f m a
+  // :: f a -> FreerT f m a
   const liftF = fa => wrap(F.map(FreerT.of)(fa));
 
-  // :: Functor f -> Monad m -> (f (m a) -> m a) -> FreerT f m a -> m a
+  // :: Monad m -> (f (m a) -> m a) -> FreerT f m a -> m a
   const iterT = M => phi => m =>
     m(
       match({
